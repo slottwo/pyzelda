@@ -1,15 +1,19 @@
 import pygame
 import sys
 from settings import *
+from level import Level
+from pygame.color import Color
 
 
 class Game:
     def __init__(self) -> None:
-
-        # configuração geral
+        # configuração geral do pygame
         pygame.init()
+        pygame.display.set_caption('pyZelda')
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()  # "FPS"
+
+        self.level = Level(WORLD_MAP)
 
     def run(self):
         while True:
@@ -20,10 +24,13 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            # pinta tela de preto
-            self.screen.fill('black')
+            # pinta tela com a cor da grama
+            self.screen.fill(color=Color('0x99e550'))
 
-            # atualiza o frame atual da tela
+            # atualiza e desenha o jogo
+            self.level.run()
+
+            # atualiza a tela para o frame atual
             pygame.display.update()
 
             # espera 1/FPS segundos a cada frame
